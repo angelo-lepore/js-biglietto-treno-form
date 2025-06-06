@@ -1,6 +1,7 @@
 // Select the dom elements infide the form
 
 const formEl = document.getElementById ("recipe-userData")
+const cancelButtonEl = document.querySelector(".cancelButton")
 const imputlastNameEl = document.getElementById ("lastName")
 const imputkmsEl = document.getElementById ("kms")
 const selectuserAgeEl = document.getElementById ("userAge")
@@ -35,14 +36,6 @@ formEl.addEventListener("submit", (e) => {
     const userAgeValue = selectuserAgeEl.value
     console.log(userAgeValue)
 
-    // Update the dom card
-
-    cardlastNamePassengerEl.innerHTML = lastNameValue
-    //cardofferEl.innerHTML =
-    //cardcarriageEl =
-    //cardcodecpEl =
-    cardpriceEl.innerHTML = discounted_priceValue
-
     // I create a variable based on km (0.21€/km)
 
     const price_perkms = 0.21;
@@ -56,12 +49,24 @@ formEl.addEventListener("submit", (e) => {
     const percentage_discount20 = 20;
     const percentage_discount40 = 40;
 
-    if (userAgeValue < 18) {
+    if (userAgeValue === "underage") {
     const amount_discount = (ticket_price * percentage_discount20) / 100;
     discounted_price = ticket_price - amount_discount;
-    } else if (userAgeValue >= 65) {
+    } else if (userAgeValue === "over") {
     const amount_discount = (ticket_price * percentage_discount40) / 100;
     discounted_price = ticket_price - amount_discount;
     }
 
+    // Update the dom card
+
+    cardlastNamePassengerEl.innerHTML = lastNameValue
+    //cardofferEl.innerHTML =
+    //cardcarriageEl =
+    //cardcodecpEl =
+    //cardpriceEl.innerHTML = discounted_priceValue
+    document.getElementById("price").innerText = discounted_price.toFixed(2) + " €";
+
 })
+// Cancel button set to reload page
+
+cancelButtonEl.addEventListener("click", () => location.reload());
