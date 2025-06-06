@@ -32,16 +32,17 @@
                         <div class="col">
                             <label for="userAge" class="form-label text-danger">Fascia d'età</label>
                             <select id="userAge" class="form-select border border-danger">
-                                <option selected value="adult">Minorenne</option>
-                                <option value="underage">Maggiorenne</option>
+                                <option disabled>Seleziona fascia d'età</option>
+                                <option value="underage">0-17 (Minorenne)</option>
+                                <option value="adult">18-64 (Adulto)</option>
                                 <option value="over">Over 65</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-center gap-2 bg-white border-0">
-                    <button type="button" class="btn btn-outline-danger border border-black">Genera</button>
-                    <button type="button" class="btn btn-outline-danger border border-black">Annulla</button>
+                    <button type="submit" class="btn btn-outline-danger border border-black">Genera</button>
+                    <button type="submit" class="btn btn-outline-danger border border-black">Annulla</button>
                 </div>
             </div>
         </form>
