@@ -11,13 +11,13 @@ console.log(formEl, imputlastNameEl, imputkmsEl, selectuserAgeEl)
 // Select the dom elements for the card
 
 const cardlastNamePassengerEl = document.getElementById ("lastName-passenger")
+const cardseatNumberEl = document.getElementById ("seat-number")
 const cardofferEl = document.getElementById ("offer")
 const cardcarriageEl = document.getElementById ("carriage")
 const cardcodecpEl = document.getElementById ("code-cp")
 const cardpriceEl = document.getElementById ("price")
 
 console.log(cardlastNamePassengerEl, cardofferEl, cardcarriageEl, cardcodecpEl, cardpriceEl)
-
 
 // Implementation
 
@@ -30,11 +30,11 @@ formEl.addEventListener("submit", (e) => {
     // Read the input values
 
     const lastNameValue = imputlastNameEl.value
-    console.log(lastNameValue)
+    console.log("Nome e Cognome passeggero: " + lastNameValue)
     const kmsValue = imputkmsEl.value
-    console.log(kmsValue)
+    console.log("Km da percorre: " + kmsValue + "km")
     const userAgeValue = selectuserAgeEl.value
-    console.log(userAgeValue)
+    console.log("Fascia d'età: " + userAgeValue)
 
     // I create a variable based on km (0.21€/km)
 
@@ -52,21 +52,61 @@ formEl.addEventListener("submit", (e) => {
     if (userAgeValue === "underage") {
     const amount_discount = (ticket_price * percentage_discount20) / 100;
     discounted_price = ticket_price - amount_discount;
+    console.log("Costo biglietto: " + discounted_price.toFixed(2) + " €");
+    message = ("Biglietto sconto 20%");
+    console.log(message);
     } else if (userAgeValue === "over") {
     const amount_discount = (ticket_price * percentage_discount40) / 100;
     discounted_price = ticket_price - amount_discount;
+    console.log("Costo biglietto: " + discounted_price.toFixed(2) + " €");
+    message = ("Biglietto sconto 40%");
+    console.log(message);
+    } else {
+    console.log("Costo biglietto: " + discounted_price.toFixed(2) + " €")
+    message = ("Biglietto Standard");
+    console.log(message);
     }
+
+    // I create a random generator for the carriage number and the cp code
+
+    function generateRandomCarriage(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    let RandomCarriage = generateRandomCarriage(1, 12);
+    console.log("N. carrozza: " + RandomCarriage);
+
+    function padWithZeros(number) {
+        return number.toString().padStart(5, '0');
+    }
+
+    function generateRandomCodeCp(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    let RandomCodeCp = generateRandomCodeCp(1, 99999);
+    let zeroRandomCodeCp = padWithZeros(RandomCodeCp);
+    console.log("Codice CP: " + zeroRandomCodeCp);
+
+    // I create a random place generator
+
+    function seatNumber() {
+        const numberSeat = Math.floor(Math.random() * 20) + 1;
+        const lettersSeat = ['A', 'B', 'C', 'D'];
+        const letterSeat = lettersSeat[Math.floor(Math.random() * 4)];
+        return numberSeat + letterSeat;
+    }
+    console.log("Posto N. " + seatNumber());
+    let seat_Number = seatNumber()
 
     // Update the dom card
 
-    cardlastNamePassengerEl.innerHTML = lastNameValue
-    //cardofferEl.innerHTML =
-    //cardcarriageEl =
-    //cardcodecpEl =
-    //cardpriceEl.innerHTML = discounted_priceValue
-    document.getElementById("price").innerText = discounted_price.toFixed(2) + " €";
-
+    cardlastNamePassengerEl.innerHTML = lastNameValue + " (" + userAgeValue + ")"
+    cardofferEl.innerText = message
+    cardseatNumberEl.innerText = seat_Number
+    cardcarriageEl.innerText = RandomCarriage
+    cardcodecpEl.innerText = zeroRandomCodeCp
+    cardpriceEl.innerText = discounted_price.toFixed(2) + " €";
 })
+
 // Cancel button set to reload page
 
 cancelButtonEl.addEventListener("click", () => location.reload());
